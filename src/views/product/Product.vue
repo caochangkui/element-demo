@@ -1,11 +1,11 @@
 <template>
   <div class="">
-    Dashboard
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'Product'
 }
 </script>

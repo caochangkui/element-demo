@@ -5,12 +5,19 @@
     </div>
     <div class="navbar">
       <div class="btn" @click="handleMenu">
-        <span class="el-icon-tickets"></span>
+        <span :class="menuBtn"></span>
       </div>
-      <div class="user">
-        <span>用户</span>
-        <span class="el-icon-caret-bottom"></span>
-      </div>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          用户<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>个人中心</el-dropdown-item>
+          <el-dropdown-item>消息</el-dropdown-item>
+          <el-dropdown-item>设置</el-dropdown-item>
+          <el-dropdown-item>退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -20,12 +27,16 @@ export default {
   name: 'Header',
   data () {
     return {
+      menuBtn: 'el-icon-tickets'
     }
+  },
+  computed: {
+
   },
   methods: {
     handleMenu () {
       this.$emit('changeMenu')
-      console.log(9)
+      this.menuBtn === 'el-icon-tickets' ? this.menuBtn = 'el-icon-d-arrow-right' : this.menuBtn = 'el-icon-tickets'
     }
   }
 }
@@ -56,4 +67,7 @@ export default {
         width 60px
         line-height 60px;
         cursor pointer
+      .el-dropdown-link
+        color #fff
+        font-weight bold
 </style>

@@ -1,11 +1,8 @@
 <template>
-  <div class="">
-    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group> -->
+  <div class="sidebar">
     <el-menu
-      default-active="1-4-1"
+      :default-active="activeIndex"
+      router
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -14,34 +11,42 @@
       text-color="#fff"
       active-text-color="#ffd04b"
     >
-      <el-menu-item index="1">
+      <el-menu-item index="/dashboard">
         <i class="el-icon-menu"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-submenu index="2">
+      <el-submenu index="/product">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">产品管理</span>
         </template>
-          <el-menu-item index="2-1">产品列表</el-menu-item>
-          <el-menu-item index="2-2">指标列表</el-menu-item>
+        <el-menu-item index="/product/product_list">产品列表</el-menu-item>
+        <el-menu-item index="/product/portrait_list">指标列表</el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">
-          <i class="el-icon-menu"></i>
+          <i class="el-icon-rank"></i>
           <span slot="title">账号管理</span>
         </template>
-          <el-menu-item index="3-1">账号开设</el-menu-item>
-          <el-menu-item index="3-2">账号编辑</el-menu-item>
-          <el-menu-item index="3-3">账号操作记录</el-menu-item>
+        <el-menu-item index="">账号开设</el-menu-item>
+        <el-menu-item index="">账号编辑</el-menu-item>
+        <el-menu-item index="">账号操作记录</el-menu-item>
       </el-submenu>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">计费管理</span>
-      </el-menu-item>
-      <el-menu-item index="5" disabled>
-        <i class="el-icon-setting"></i>
+      <el-submenu index="">
+        <template slot="title">
+          <i class="el-icon-edit-outline"></i>
+          <span slot="title">计费管理</span>
+        </template>
+        <el-menu-item index="">账单列表</el-menu-item>
+        <el-menu-item index="">账单详情</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="">
+        <i class="el-icon-printer"></i>
         <span slot="title">财务统计</span>
+      </el-menu-item>
+      <el-menu-item index="" disabled>
+        <i class="el-icon-setting"></i>
+        <span slot="title">系统管理</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -55,6 +60,18 @@ export default {
   },
   data () {
     return {
+      elementRouter: {
+        opended: true,
+        router: true,
+        active: ''
+      }
+    }
+  },
+  computed: {
+    activeIndex () {
+      const thisRoutPath = this.$route.path
+
+      return thisRoutPath
     }
   },
   methods: {
@@ -69,30 +86,30 @@ export default {
 </script>
 
 <style scoped>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 220px;
-  min-height: 100vh;
-}
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 220px;
+    min-height: 100vh;
+  }
 
-.el-menu-vertical-demo {
-  min-height: 100vh;
-}
+  .el-menu-vertical-demo {
+    min-height: 100vh;
+  }
 
-.el-menu-item.is-active,
-.el-submenu.is-active >>> .el-submenu__title {
-  background: #484e5c !important;
-}
+  .el-menu-item.is-active,
+  .el-submenu.is-active >>> .el-submenu__title {
+    background: #484e5c !important;
+  }
 
-.el-submenu .el-menu-item {
-  padding-left: 60px !important;
-}
-.el-submenu.is-active .el-menu-item {
-  background: #484e5c !important;
-}
+  .el-submenu .el-menu-item {
+    padding-left: 60px !important;
+  }
+  .el-submenu.is-active .el-menu-item {
+    background: #484e5c !important;
+  }
 
-.el-submenu .el-menu-item:hover {
-  padding-left: 60px !important;
-  background: rgb(67, 74, 80) !important;
-}
+  .el-submenu .el-menu-item:hover {
+    padding-left: 60px !important;
+    background: rgb(67, 74, 80) !important;
+  }
 
 </style>

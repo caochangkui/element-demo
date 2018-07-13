@@ -4,11 +4,7 @@
     <div class="app-body">
       <Siderbar :isCollapse="isCollapse"></Siderbar>
       <div id="app-content">
-         <p>contentcontentcontentcontentcontentcontentcontent</p>
-         <p>contentcontentcontentcontentcontentcontentcontent</p>
-         <p>contentcontentcontentcontentcontentcontentcontent</p>
-         <p>contentcontentcontentcontentcontentcontentcontent</p>
-         <p>contentcontentcontentcontentcontentcontentcontent</p>
+         <router-view></router-view>
       </div>
     </div>
   </div>
@@ -38,7 +34,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-  .app-content
-    border 1px solid red
-    width 100%
+  .app-body
+    display flex
+    #app-content
+      flex 1
+      padding 10px 20px
 </style>

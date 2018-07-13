@@ -1,0 +1,121 @@
+<template>
+<div>
+  <el-table
+    :data="tableData.slice((currentPage-1)*pageSize, currentPage*pageSize)"
+    align="center"
+    border
+    v-loading="loading"
+  >
+    <el-table-column
+      align="center"
+      label="ProductId"
+      width="100">
+      <template slot-scope="scope">
+        <span>{{ scope.row.id }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      align="center"
+      label="Name" >
+      <template slot-scope="scope">
+        <span>{{ scope.row.name }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      align="center"
+      label="Address">
+      <template slot-scope="scope">
+        <span>{{ scope.row.address }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      align="center"
+      label="Telephone">
+      <template slot-scope="scope">
+        <span>{{ scope.row.telephone }}</span>
+      </template>
+    </el-table-column>
+    <el-table-column
+      align="center"
+      fixed="right"
+      label="Operate"
+      width="180">
+      <template slot-scope="scope">
+        <el-button type="primary" icon="el-icon-edit" size="small" circle @click="handleEdit(scope.$index, scope.row)"></el-button>
+        <el-button type="danger" icon="el-icon-delete" size="small" circle @click="handleDelete(scope.$index, scope.row)"></el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <el-pagination
+    background
+    :page-size=pageSize
+    :current-page="currentPage"
+    layout="prev, pager, next"
+    :total="totalPage"
+    @current-change="currentChange"
+  >
+  </el-pagination>
+</div>
+</template>
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'ProductList',
+  data () {
+    return {
+      loading: true,
+      tableData: [],
+      totalPage: 0,
+      currentPage: 1,
+      pageSize: 10
+    }
+  },
+  watch: {
+    // 如果 `tableData` 发生改变，这个函数就会运行
+    tableData () {
+      this.totalPage = this.tableData.length
+    }
+  },
+  methods: {
+    getProductList () {
+      this.loading = true
+      setTimeout(() => {
+        axios.get('/api/products.json').then((res) => {
+          res = res.data
+          if (res.ret && res.data) {
+            const data = res.data
+            this.tableData = data.products
+            this.loading = false
+          }
+        })
+      }, 600)
+    },
+    currentChange (page) {
+      this.currentPage = page
+    },
+    handleEdit (index, row) {
+      console.log(index, row)
+      // this.$store
+    },
+    handleDelete (index, row) {
+      this.$confirm('此操作将删除该行内容, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.tableData.splice(index, 1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+      })
+    }
+  },
+  mounted () {
+    this.getProductList()
+  }
+}
+</script>

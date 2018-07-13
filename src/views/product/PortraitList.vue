@@ -1,11 +1,11 @@
 <template>
   <div class="">
-    Dashboard
+    指标列表
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'PortraitList'
 }
 </script>
