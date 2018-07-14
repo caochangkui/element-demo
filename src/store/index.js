@@ -5,11 +5,17 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
   state: {
-    productDetail: {
-      id: '027',
-      name: 'faf s dsd  dsrererd evcry',
-      address: 'shanghai pudongxinqu',
-      telephone: '18345678900'
+    productDetail: JSON.parse(localStorage.getItem('productDetail'))
+  },
+  getters: {
+
+  },
+  mutations: {
+    showProductDetail (state, product) {
+      state.productDetail = product
+      try {
+        localStorage.setItem('productDetail', JSON.stringify(product))
+      } catch (e) {}
     }
   }
 })

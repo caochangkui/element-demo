@@ -4,7 +4,8 @@
     <div class="app-body">
       <Siderbar :isCollapse="isCollapse"></Siderbar>
       <div id="app-content">
-         <router-view></router-view>
+        <Breadcrumb :list="list"></Breadcrumb>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -13,16 +14,29 @@
 <script>
 import Header from '../components/header/Header'
 import Siderbar from '../components/sidebar/Sidebar'
+import Breadcrumb from '../components/breadcrumb/Breadcrumb'
 
 export default {
   name: 'Full',
   components: {
     Header,
-    Siderbar
+    Siderbar,
+    Breadcrumb
   },
   data () {
     return {
       isCollapse: false
+    }
+  },
+  created () {
+    console.log(this.$route)
+  },
+  computed: {
+    list () {
+      return this.$route.matched
+    },
+    name () {
+      return this.$route.name
     }
   },
   methods: {
@@ -39,4 +53,5 @@ export default {
     #app-content
       flex 1
       padding 10px 20px
+      background #fff
 </style>

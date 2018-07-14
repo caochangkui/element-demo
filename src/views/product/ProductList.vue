@@ -39,10 +39,11 @@
       align="center"
       fixed="right"
       label="Operate"
-      width="180">
+      width="240">
       <template slot-scope="scope">
-        <el-button type="primary" icon="el-icon-edit" size="small" circle @click="handleEdit(scope.$index, scope.row)"></el-button>
-        <el-button type="danger" icon="el-icon-delete" size="small" circle @click="handleDelete(scope.$index, scope.row)"></el-button>
+        <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+        <el-button type="primary" size="small">编辑</el-button>
+        <el-button type="primary" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -90,14 +91,17 @@ export default {
             this.loading = false
           }
         })
-      }, 600)
+      }, 400)
     },
     currentChange (page) {
       this.currentPage = page
     },
     handleEdit (index, row) {
-      console.log(index, row)
-      // this.$store
+      // console.log(index, row)
+      this.$store.commit('showProductDetail', row)
+      this.$router.push({
+        path: `/product/product_list/${row.id}`
+      })
     },
     handleDelete (index, row) {
       this.$confirm('此操作将删除该行内容, 是否继续?', '提示', {

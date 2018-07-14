@@ -24,6 +24,7 @@ export default new Router({
         },
         {
           path: 'product',
+          redirect: '/product/product_list',
           name: 'Product',
           component: Product,
           children: [
@@ -33,7 +34,7 @@ export default new Router({
               component: ProductList
             },
             {
-              path: '/product/:id', // 传入不同的id,就可以跳转到不同的子路由
+              path: '/product/product_list/:id', // 传入不同的id,就可以跳转到不同的子路由
               name: 'ProductDetail',
               component: ProductDetail
             },

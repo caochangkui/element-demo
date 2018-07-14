@@ -70,7 +70,9 @@ export default {
   computed: {
     activeIndex () {
       const thisRoutPath = this.$route.path
-
+      if (this.$route.name === 'ProductDetail') {
+        return '/product/product_list'
+      }
       return thisRoutPath
     }
   },
