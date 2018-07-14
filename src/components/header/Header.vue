@@ -9,13 +9,13 @@
       </div>
       <el-dropdown>
         <span class="el-dropdown-link">
-          用户<i class="el-icon-arrow-down el-icon--right"></i>
+          {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>
           <el-dropdown-item>消息</el-dropdown-item>
           <el-dropdown-item>设置</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">退出 </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -31,12 +31,27 @@ export default {
     }
   },
   computed: {
-
+    username () {
+      return JSON.parse(localStorage.getItem('user')).username
+    }
   },
   methods: {
     handleMenu () {
       this.$emit('changeMenu')
       this.menuBtn === 'el-icon-tickets' ? this.menuBtn = 'el-icon-d-arrow-right' : this.menuBtn = 'el-icon-tickets'
+    },
+    logout () {
+      this.$confirm('是否退出账户?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        localStorage.removeItem('user')
+        this.$router.push({
+          path: '/login'
+        })
+      }).catch(() => {
+      })
     }
   }
 }
@@ -70,4 +85,5 @@ export default {
       .el-dropdown-link
         color #fff
         font-weight bold
+        cursor pointer
 </style>
