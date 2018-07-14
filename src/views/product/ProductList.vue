@@ -83,7 +83,7 @@ export default {
     getProductList () {
       this.loading = true
       setTimeout(() => {
-        axios.get('/api/products.json').then((res) => {
+        axios.get('../../../static/mock/products.json').then((res) => {
           res = res.data
           if (res.ret && res.data) {
             const data = res.data
