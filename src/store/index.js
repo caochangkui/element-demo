@@ -15,10 +15,22 @@ let store = new Vuex.Store({
     ],
     productDetail: JSON.parse(localStorage.getItem('productDetail'))
   },
-  getters: {
-
-  },
+  // getters: {
+  //   getUsers (state) {
+  //     try {
+  //       if (localStorage.getItem('users')) {
+  //         return JSON.parse(localStorage.getItem('users'))
+  //       } else {
+  //         return state.users
+  //       }
+  //     } catch (e) {}
+  //   }
+  // },
   mutations: {
+    register (state, user) {
+      state.users.push(user)
+      console.log(state.users)
+    },
     showProductDetail (state, product) {
       state.productDetail = product
       try {

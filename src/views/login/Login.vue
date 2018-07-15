@@ -5,7 +5,7 @@
         <input type="text" v-model="username" placeholder="用户名" >
         <input type="password" v-model="password" placeholder="登陆密码" >
         <button type="button" @click="login">登&nbsp;&nbsp;陆</button>
-        <p class="register" @click="gotoRegist">点击注册</p>
+        <p class="register" @click="gotoRegist">没有账户？点击注册</p>
     </form>
   </div>
 </template>
@@ -21,9 +21,12 @@ export default {
     }
   },
   computed: {
-    user () {
+    users () {
       return this.$store.state.users
     }
+  },
+  activated () { // 当路由发送变化时 ,就会执行钩子函数 activaed
+    localStorage.clear()
   },
   methods: {
     login () {
@@ -35,7 +38,7 @@ export default {
         alert('请输入用户名！')
         return
       }
-      this.user.map((val, index) => {
+      this.users.map((val, index) => {
         if (val.username === this.username && val.password === this.password) {
           this.exist = true
         }
@@ -50,7 +53,7 @@ export default {
           path: `/`
         })
       } else {
-        alert('登录失败，请重新登录')
+        alert('用户名或密码错误，请重新登录')
       }
     },
     gotoRegist () {
