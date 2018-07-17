@@ -22,11 +22,21 @@ export default {
   },
   computed: {
     users () {
-      return this.$store.state.users
+      if (localStorage.getItem('userList')) {
+        return JSON.parse(localStorage.getItem('userList'))
+      } else {
+        return this.$store.state.users
+      }
     }
   },
   activated () { // 当路由发送变化时 ,就会执行钩子函数 activaed
-    localStorage.clear()
+    if (localStorage.getItem('userList')) {
+      const userList = JSON.parse(localStorage.getItem('userList'))
+      localStorage.clear()
+      localStorage.setItem('userList', JSON.stringify(userList))
+    } else {
+      localStorage.clear()
+    }
   },
   methods: {
     login () {

@@ -8,7 +8,6 @@ let store = new Vuex.Store({
     // 所有用户
     users: [
       {
-        id: 1,
         username: 'admin',
         password: '123456'
       }

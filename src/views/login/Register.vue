@@ -67,16 +67,19 @@ export default {
       }
     }
   },
+  created () {
+    localStorage.setItem('userList', JSON.stringify(this.$store.state.users))
+  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.ruleForm2)
-          this.$store.commit('register', {
-            id: this.$store.state.users.length + 1,
+          const userList = JSON.parse(localStorage.getItem('userList'))
+          userList.push({
             username: this.ruleForm2.username,
             password: this.ruleForm2.pass
           })
+          localStorage.setItem('userList', JSON.stringify(userList))
         } else {
           console.log('error submit!!')
           return false

@@ -27,13 +27,12 @@ export default {
   name: 'Header',
   data () {
     return {
-      menuBtn: 'el-icon-tickets'
+      menuBtn: 'el-icon-tickets',
+      username: ''
     }
   },
-  computed: {
-    username () {
-      return JSON.parse(localStorage.getItem('user')).username
-    }
+  activated () { // 当路由发送变化时 ,就会执行钩子函数 activaed
+    this.username = JSON.parse(localStorage.getItem('user')).username
   },
   methods: {
     handleMenu () {

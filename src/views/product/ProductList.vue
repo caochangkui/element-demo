@@ -41,8 +41,8 @@
       label="Operate"
       width="240">
       <template slot-scope="scope">
-        <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-        <el-button type="primary" size="small">编辑</el-button>
+        <el-button type="primary" size="small" @click="handlePre(scope.$index, scope.row)">查看</el-button>
+        <el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
         <el-button type="primary" size="small" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
@@ -96,8 +96,7 @@ export default {
     currentChange (page) {
       this.currentPage = page
     },
-    handleEdit (index, row) {
-      // console.log(index, row)
+    handlePre (index, row) {
       this.$store.commit('showProductDetail', row)
       this.$router.push({
         path: `/product/product_list/${row.id}`
@@ -115,6 +114,39 @@ export default {
           message: '删除成功!'
         })
       }).catch(() => {
+      })
+    },
+    handleEdit (index, row) {
+      console.log(index, row)
+      const h = this.$createElement
+      this.$msgbox({
+        title: '产品编辑',
+        message: h('div', null, [
+          h('p', null, '内容可以是 '),
+          h('p', { style: 'color: teal' }, 'VNode')
+        ]),
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+            setTimeout(() => {
+              done()
+              setTimeout(() => {
+                instance.confirmButtonLoading = false
+              }, 300)
+            }, 3000)
+          } else {
+            done()
+          }
+        }
+      }).then(action => {
+        this.$message({
+          type: 'info',
+          message: 'action: ' + action
+        })
       })
     }
   },
