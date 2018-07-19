@@ -88,6 +88,10 @@ export default {
 </script>
 
 <style scoped>
+  .sidebar {
+    height: 100vh;
+    background-color: rgb(84, 92, 100);
+  }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 220px;
     min-height: 100vh;

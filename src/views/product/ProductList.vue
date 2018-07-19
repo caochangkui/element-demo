@@ -122,31 +122,20 @@ export default {
       this.$msgbox({
         title: '产品编辑',
         message: h('div', null, [
-          h('p', null, '内容可以是 '),
-          h('p', { style: 'color: teal' }, 'VNode')
+          h('p', null, `Name: ${row.name}`),
+          h('p', null, `Address: ${row.address}`),
+          h('p', { style: 'color: teal' }, `Telephone: ${row.telephone}`)
         ]),
         showCancelButton: true,
         confirmButtonText: '确定',
-        cancelButtonText: '取消',
         beforeClose: (action, instance, done) => {
           if (action === 'confirm') {
-            instance.confirmButtonLoading = true
-            instance.confirmButtonText = '执行中...'
-            setTimeout(() => {
-              done()
-              setTimeout(() => {
-                instance.confirmButtonLoading = false
-              }, 300)
-            }, 3000)
+            done()
           } else {
             done()
           }
         }
       }).then(action => {
-        this.$message({
-          type: 'info',
-          message: 'action: ' + action
-        })
       })
     }
   },

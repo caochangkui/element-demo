@@ -29,7 +29,7 @@ export default {
       }
     }
   },
-  activated () { // 当路由发送变化时 ,就会执行钩子函数 activaed
+  created () {
     if (localStorage.getItem('userList')) {
       const userList = JSON.parse(localStorage.getItem('userList'))
       localStorage.clear()
@@ -59,9 +59,16 @@ export default {
           password: this.password
         }
         localStorage.setItem('user', JSON.stringify(thisuser))
-        this.$router.push({
-          path: `/`
+        this.$message({
+          message: '登录成功',
+          type: 'success',
+          duration: 1000
         })
+        setTimeout(() => {
+          this.$router.push({
+            path: `/`
+          })
+        }, 400)
       } else {
         alert('用户名或密码错误，请重新登录')
       }

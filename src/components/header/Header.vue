@@ -7,7 +7,7 @@
       <div class="btn" @click="handleMenu">
         <span :class="menuBtn"></span>
       </div>
-      <el-dropdown>
+      <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
@@ -27,12 +27,13 @@ export default {
   name: 'Header',
   data () {
     return {
-      menuBtn: 'el-icon-tickets',
-      username: ''
+      menuBtn: 'el-icon-tickets'
     }
   },
-  activated () { // 当路由发送变化时 ,就会执行钩子函数 activaed
-    this.username = JSON.parse(localStorage.getItem('user')).username
+  computed: {
+    username () {
+      return JSON.parse(localStorage.getItem('user')).username
+    }
   },
   methods: {
     handleMenu () {

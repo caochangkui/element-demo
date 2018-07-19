@@ -13,7 +13,7 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
         <el-button @click="resetForm('ruleForm2')">重置</el-button>
-        <p class="login">已有账号？<span @click="gotoLogin">点击登录</span> </p>
+        <p class="login" @click="gotoLogin">已有账号？点击登录</p>
       </el-form-item>
     </el-form>
   </div>
@@ -28,8 +28,8 @@ export default {
         return callback(new Error('用户名不能为空'))
       }
       setTimeout(() => {
-        if (value.length < 4) {
-          callback(new Error('用户名必须大于三个字符'))
+        if (value.length < 3) {
+          callback(new Error('用户名不能小于三个字符'))
         } else {
           callback()
         }
@@ -68,7 +68,10 @@ export default {
     }
   },
   created () {
-    localStorage.setItem('userList', JSON.stringify(this.$store.state.users))
+    if (localStorage.getItem('userList')) {
+    } else {
+      localStorage.setItem('userList', JSON.stringify(this.$store.state.users))
+    }
   },
   methods: {
     submitForm (formName) {
@@ -80,6 +83,17 @@ export default {
             password: this.ruleForm2.pass
           })
           localStorage.setItem('userList', JSON.stringify(userList))
+          this.$notify({
+            title: '成功',
+            message: '注册成功，请登录！',
+            type: 'success',
+            duration: 3000
+          })
+          setTimeout(() => {
+            this.$router.push({
+              path: `/login`
+            })
+          }, 1000)
         } else {
           console.log('error submit!!')
           return false
@@ -113,7 +127,7 @@ export default {
   color: #1ab2ff;
   cursor: pointer;
 }
-.login span:hover {
+.login:hover {
   color: #2c2fd6;
 }
 </style>
