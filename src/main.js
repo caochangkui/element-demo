@@ -20,3 +20,12 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+let storsssse = {}
+console.log(store)
+console.log(store.state.users[0].username)
+console.log(storsssse.state.users[0].username)
+
+let a = store.state.users[0].username
+
+console.log(a)
